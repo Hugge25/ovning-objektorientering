@@ -1,70 +1,56 @@
 ﻿using System;
+using ovning_objektorientering;
 
-abstract class Character
+class Program
 {
-    protected string name;
-    public string Name
+    static void Main(string[] args)
     {
-        get{return name;}
-        set{name = value;}
-    }
-    protected int hp;
-    public int HP
-    {
-        get{return hp;}
-        set{hp = value;}
-    }
+        Paladin paladin = new Paladin(20, "Paladin", 100);
+        Sorcerer sorcerer = new Sorcerer(20, "Sorcerer", 100);
+        Barbarian barbarian = new Barbarian(20, "Barbarian", 100);
 
-    public Character(string name, int hp)
-    {
-        this.name = name;
-        this.hp = hp;
-    }
+        List<Character> characters = new List<Character>();
 
-    public abstract void Print();
-}
+        characters.Add(paladin);
+        characters.Add(barbarian);
+        characters.Add(sorcerer);
 
-class Paladin : Character
-{
-    int HolyPower;
-    public Paladin(int HolyPower) : base("Paladin", 100)
-    {
-        this.HolyPower = HolyPower;
-    }
-    public override void Print()
-    {
-        Console.WriteLine($"HolyPower: {HolyPower}");
-        Console.WriteLine($"HP: {name}");
-        Console.WriteLine($"Name {hp}");
-    }
-}
+        
+        bool game = true;
+        string input;
 
-class Sorcerer : Character
-{
-    int Mana;
-    public Sorcerer(int Mana) : base("Sorcerer", 100)
-    {
-        this.Mana = Mana;
-    }
-    public override void Print()
-    {
-        Console.WriteLine($"Mana: {Mana}");
-        Console.WriteLine($"HP: {name}");
-        Console.WriteLine($"Name {hp}");
-    }
-}
+        while(game == true)
+        {
+            input = Console.ReadLine();
+            
+            if(input == "bar")
+            {
+                barbarian.TakeDamage();
+            }
 
-class Barbarian : Character
-{
-    int RageLevel;
-    public Barbarian(int RageLevel) : base("Barbarian", 100)
-    {
-        this.RageLevel = RageLevel;
-    }
-    public override void Print()
-    {
-        Console.WriteLine($"RageLevel: {RageLevel}");
-        Console.WriteLine($"HP: {name}");
-        Console.WriteLine($"Name {hp}");
+            if(input == "pal")
+            {
+                paladin.TakeDamage();
+            }
+
+            if(input == "sor")
+            {
+                sorcerer.TakeDamage();
+            }
+
+            if(input == "pri")
+            {
+                foreach(Character character in characters)
+                {
+                    character.Print();
+                }
+            }
+
+            if(input == "done")
+            {
+                game = false;
+            }
+        }
+        
     }
 }
